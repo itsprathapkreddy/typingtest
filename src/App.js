@@ -3,7 +3,7 @@ import Timer from './Components/Timer';
 import SideBar from './Components/SideBar';
 import Header from './Components/Header';
 import { Container, Row, Col } from 'react-bootstrap';
-
+import Example from './Components/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -25,6 +25,9 @@ function App() {
 	const [currWordHook, setCurrWordHook] = useState('');
 	const scollToRef = useRef();
 
+	const [errorModal, setErrorModal] = useState(false);
+	const [reportWords, setReportWords] = useState([]);
+
 	const getQuotes = async () => {
 		setWords('');
 		for (let i = 0; i < time * 2; i++) {
@@ -33,7 +36,9 @@ function App() {
 			);
 			const data = await response.json();
 
-			setWords((x) => x.concat(data.content.replaceAll("'", '')));
+			if (words)
+				setWords((x) => x.concat(' ', data.content.replaceAll("'", '')));
+			else setWords((x) => x.concat(data.content.replaceAll("'", '')));
 		}
 	};
 
@@ -44,7 +49,7 @@ function App() {
 			e.key == 'ArrowRight' ||
 			e.key == 'ArrowLeft'
 		) {
-			alert('Bacspace and Delete Keys are not ALLOWED');
+			setErrorModal(true);
 			setSkip(true);
 		}
 	};
@@ -122,12 +127,20 @@ function App() {
 	};
 
 	const updateResult = () => {
+		setReportWords([]);
 		setCorrectWords(0);
 		words.split(' ').forEach((x, i) => {
-			if (textArea.split(' ')[i] != undefined) {
-				if (x == textArea.split(' ')[i]) {
-					setCorrectWords((x) => x + 1);
-				}
+			let tsWord = textArea.split(' ')[i];
+			if (tsWord != undefined) {
+				if (x == tsWord) setCorrectWords((x) => x + 1);
+				else if (tsWord != '')
+					setReportWords((reportWords) => [
+						...reportWords,
+						{
+							correct: x,
+							wrong: tsWord,
+						},
+					]);
 			}
 		});
 	};
@@ -138,7 +151,6 @@ function App() {
 
 	const endTest = () => {
 		setTextAreaDisabled(true);
-		console.log('Time has ENDED');
 	};
 	useEffect(() => {
 		if (scollToRef.current != undefined) scollToRef.current.scrollIntoView();
@@ -153,15 +165,36 @@ function App() {
 						<Row>
 							{!time && (
 								<div>
-									<button onClick={() => setTime(1)}>1 Min</button>
-									<button onClick={() => setTime(2)}>2 Min</button>
-									<button onClick={() => setTime(3)}>3 Min</button>
-									<button onClick={() => setTime(5)}>5 Min</button>
+									<div onClick={() => setTime(1)} className='startButton'>
+										<div>Duration</div>
+										<div className='startButtonTime'>1 minute</div>
+									</div>
+									<div onClick={() => setTime(2)} className='startButton'>
+										<div>Duration</div>
+										<div className='startButtonTime'>2 minute</div>
+									</div>
+									<div onClick={() => setTime(3)} className='startButton'>
+										<div>Duration</div>
+										<div className='startButtonTime'>3 minute</div>
+									</div>
+									<div onClick={() => setTime(5)} className='startButton'>
+										<div>Duration</div>
+										<div className='startButtonTime'>5 minute</div>
+									</div>
 								</div>
 							)}
 						</Row>
 						{!time == 0 && (
 							<>
+								{errorModal && (
+									<Example
+										head='OOPS...'
+										des='Backspace and Delete keys are disabled, to make you better at typing.'
+										btnTxt='OKAY'
+										closeModal={() => setErrorModal(false)}
+									/>
+								)}
+
 								<Row>
 									<Timer time={time} endTest={endTest} />
 								</Row>
@@ -194,6 +227,8 @@ function App() {
 								accuracy={accuracy.toFixed(2)}
 								time={time}
 								endTest={endTest}
+								textAreaDisabled={textAreaDisabled}
+								reportWords={reportWords}
 							/>
 						)}
 					</Col>

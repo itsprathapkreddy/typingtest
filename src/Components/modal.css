@@ -1,0 +1,44 @@
+.myModal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100%;
+	background-color: black;
+	opacity: 0.6;
+	z-index: 10;
+	color: white;
+	text-align: center;
+	vertical-align: center;
+}
+.modalContainer {
+	position: absolute;
+	top: 20vh;
+	left: 50vh;
+
+	width: 30%;
+	text-align: center;
+	vertical-align: middle;
+	opacity: 1;
+	background-color: #262626;
+	z-index: 100;
+	border-radius: 10px;
+}
+.modalButton {
+	color: black;
+	background-color: #6fbf7b;
+	margin: 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 20px;
+}
+.modalHead {
+	font-weight: 600;
+	margin: 10px 0;
+	padding: 10px;
+}
+.modalDes {
+	color: white;
+	font-size: 20px;
+	margin: 10px 0 30px 0;
+}
