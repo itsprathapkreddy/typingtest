@@ -162,28 +162,35 @@ function App() {
 			<Container>
 				<Row>
 					<Col sm={8}>
-						<Row>
-							{!time && (
-								<div>
-									<div onClick={() => setTime(1)} className='startButton'>
+						{!time && (
+							<Row>
+								<Col sm={4} onClick={() => setTime(1)}>
+									<div className='startButton'>
 										<div>Duration</div>
 										<div className='startButtonTime'>1 minute</div>
 									</div>
-									<div onClick={() => setTime(2)} className='startButton'>
+								</Col>
+								<Col sm={4} onClick={() => setTime(2)}>
+									<div className='startButton'>
 										<div>Duration</div>
 										<div className='startButtonTime'>2 minute</div>
 									</div>
-									<div onClick={() => setTime(3)} className='startButton'>
+								</Col>
+								<Col sm={4} onClick={() => setTime(3)}>
+									<div className='startButton'>
 										<div>Duration</div>
 										<div className='startButtonTime'>3 minute</div>
 									</div>
-									<div onClick={() => setTime(5)} className='startButton'>
+								</Col>
+								<Col sm={4} onClick={() => setTime(5)}>
+									<div className='startButton'>
 										<div>Duration</div>
 										<div className='startButtonTime'>5 minute</div>
 									</div>
-								</div>
-							)}
-						</Row>
+								</Col>
+							</Row>
+						)}
+
 						{!time == 0 && (
 							<>
 								{errorModal && (
@@ -219,8 +226,9 @@ function App() {
 							</>
 						)}
 					</Col>
-					<Col sm={4}>
-						{!time == 0 && (
+
+					{!time == 0 && (
+						<Col sm={4}>
 							<SideBar
 								correctWords={correctWords}
 								typedWords={typedWords}
@@ -230,8 +238,8 @@ function App() {
 								textAreaDisabled={textAreaDisabled}
 								reportWords={reportWords}
 							/>
-						)}
-					</Col>
+						</Col>
+					)}
 				</Row>
 			</Container>
 		</div>

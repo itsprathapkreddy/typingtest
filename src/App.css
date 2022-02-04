@@ -19,11 +19,10 @@
 	background-color: #000;
 	cursor: pointer;
 	color: #f2b705;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	margin: 10px;
-	width: 200px;
 	display: inline-block;
+	margin: 5px 0px;
+	width: 100%;
+	border-radius: 10px;
 }
 .startButtonTime {
 	background-color: #6fbf7b;
@@ -36,6 +35,7 @@
 	border-radius: 10px;
 	background-color: black;
 	font-size: 20px;
+	margin: 0px 10px;
 }
 .sideBarHead {
 	text-align: center;
