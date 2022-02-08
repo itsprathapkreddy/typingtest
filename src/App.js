@@ -7,6 +7,13 @@ import Example from './Components/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import {
+	BrowserView,
+	MobileView,
+	isBrowser,
+	isMobile,
+} from 'react-device-detect';
+
 function App() {
 	const [words, setWords] = useState('');
 	const [time, setTime] = useState(0);
@@ -159,6 +166,14 @@ function App() {
 	return (
 		<div className='App'>
 			<Header />
+			{isMobile && (
+				<div className='mobileOnly'>
+					<Header />
+					<div className='mobileOnlyMsg'>
+						To access this website, please open it on a Desktop Browser.
+					</div>
+				</div>
+			)}
 			<Container>
 				<Row>
 					<Col sm={8}>
