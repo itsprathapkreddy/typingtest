@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Example from './Components/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import {summaries} from './supporting';
 
 import {
 	BrowserView,
@@ -44,14 +45,16 @@ function App() {
 				);
 				const data = await response.json();
 
-				if (words)
+				if (words) {
 					setWords((x) => x.concat(' ', data.content.replaceAll("'", '')));
-				else setWords((x) => x.concat(data.content.replaceAll("'", '')));
+				} else {
+					setWords((x) => x.concat(data.content.replaceAll("'", '')));
+				}
 			}
-		} catch(error) {
-			
+		} catch (error) {
+			const randomNumber = Math.floor(Math.random() * summaries.length);
+			setWords(summaries[randomNumber])
 		}
-
 	};
 
 	const handleKeyPress = (e) => {
