@@ -37,16 +37,21 @@ function App() {
 
 	const getQuotes = async () => {
 		setWords('');
-		for (let i = 0; i < time * 2; i++) {
-			const response = await fetch(
-				'http://api.quotable.io/random?minLength=200'
-			);
-			const data = await response.json();
+		try{
+			for (let i = 0; i < time * 2; i++) {
+				const response = await fetch(
+					'http://api.quotable.io/random?minLength=200'
+				);
+				const data = await response.json();
 
-			if (words)
-				setWords((x) => x.concat(' ', data.content.replaceAll("'", '')));
-			else setWords((x) => x.concat(data.content.replaceAll("'", '')));
+				if (words)
+					setWords((x) => x.concat(' ', data.content.replaceAll("'", '')));
+				else setWords((x) => x.concat(data.content.replaceAll("'", '')));
+			}
+		} catch(error) {
+			
 		}
+
 	};
 
 	const handleKeyPress = (e) => {
