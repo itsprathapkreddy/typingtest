@@ -39,7 +39,7 @@ function App() {
 		setWords('');
 		for (let i = 0; i < time * 2; i++) {
 			const response = await fetch(
-				'https://api.quotable.io/random?minLength=200'
+				'http://api.quotable.io/random?minLength=200'
 			);
 			const data = await response.json();
 
